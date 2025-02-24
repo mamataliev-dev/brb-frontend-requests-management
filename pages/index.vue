@@ -91,7 +91,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { debounce } from "lodash";
+import pkg from "lodash";
+const { debounce } = pkg;
 
 const page = ref(1);
 const pageCount = 10;
@@ -111,9 +112,12 @@ async function fetchData() {
   const params = new URLSearchParams();
   if (selectedBranch.value) params.append("branch_id", selectedBranch.value);
   if (selectedStatus.value) params.append("status", selectedStatus.value);
-  if (searchQuery.value.trim()) params.append("phone_number", searchQuery.value.trim());
+  if (searchQuery.value.trim())
+    params.append("phone_number", searchQuery.value.trim());
 
-  const url = `https://brb-request-management.onrender.com/requests${params.toString() ? "?" + params.toString() : ""}`;
+  const url = `https://brb-request-management.onrender.com/requests${
+    params.toString() ? "?" + params.toString() : ""
+  }`;
   console.log("Fetching URL:", url);
 
   try {
